@@ -15,11 +15,18 @@ def sort_contours(cnts, method="left-to-right"):
                                         key=lambda b: b[1][i], reverse=reverse))
 
     return cnts, boundingBoxes
+
+
 def resize(image, width=None, height=None, inter=cv2.INTER_AREA):
+    '''
+        cv2.resize函数修改图像尺寸时，需要输入修改的尺寸（高和宽都需要）
+        自定义resize函数，可以只接受宽（或高）一个参数，而另外一个会按比例放大或缩小 
+    '''
     dim = None
     (h, w) = image.shape[:2]
     if width is None and height is None:
         return image
+    # 如果只设置了高（或宽），就按同比例缩小
     if width is None:
         r = height / float(h)
         dim = (int(w * r), height)
